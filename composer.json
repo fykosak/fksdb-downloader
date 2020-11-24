@@ -1,0 +1,17 @@
+{
+  "name": "fykosak/fksdb-downloader",
+  "type": "library",
+  "require": {
+    "php": ">=7.4",
+    "nette/utils": "^3.1",
+    "nette/caching": "^3.0",
+    "ext-dom": "*",
+    "ext-soap": "*"
+  },
+  "authors": [
+    {
+      "name": "Michal Mišo Červeňák",
+      "email": "miso@fykos.cz"
+    }
+  ]
+}
