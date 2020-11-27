@@ -1,6 +1,6 @@
 <?php
 
-namespace Fykosak\FKSDBDownloader\Downloader;
+namespace Fykosak\NetteFKSDBDownloader\ORM;
 
 use DOMNode;
 use Exception;

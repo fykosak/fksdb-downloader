@@ -1,8 +1,9 @@
 {
-  "name": "fykosak/fksdb-downloader",
+  "name": "fykosak/nette-fksdb-downloader",
   "type": "library",
   "require": {
     "php": ">=7.4",
+    "fykosak/fksdb-downloader-core": "dev-master",
     "nette/utils": "^3.1",
     "nette/caching": "^3.0",
     "ext-dom": "*",
@@ -13,5 +14,6 @@
       "name": "Michal Mišo Červeňák",
       "email": "miso@fykos.cz"
     }
-  ]
+  ],
+  "description": "FKSDB Downloader for nette web applications"
 }

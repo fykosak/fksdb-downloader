@@ -1,21 +1,22 @@
 <?php
 
-namespace Fykosak\FKSDBDownloader\Downloader;
+namespace Fykosak\NetteFKSDBDownloader\ORM;
 
 use Exception;
+use Fykosak\NetteFKSDBDownloader\NetteFKSDBDownloader;
 use Nette\SmartObject;
 
 abstract class AbstractSOAPService {
     use SmartObject;
 
-    protected Downloader $downloader;
+    protected NetteFKSDBDownloader $downloader;
 
     /**
      * ServiceEvent constructor.
-     * @param Downloader $downloader
+     * @param NetteFKSDBDownloader $downloader
      * @throws Exception
      */
-    public function __construct(Downloader $downloader) {
+    public function __construct(NetteFKSDBDownloader $downloader) {
         $this->downloader = $downloader;
     }
 }
