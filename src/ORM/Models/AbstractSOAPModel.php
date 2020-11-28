@@ -1,6 +1,6 @@
 <?php
 
-namespace Fykosak\NetteFKSDBDownloader\ORM;
+namespace Fykosak\NetteFKSDBDownloader\ORM\Models;
 
 use DOMNode;
 use Exception;
@@ -19,7 +19,7 @@ abstract class AbstractSOAPModel {
         $model = new static();
         /** @var DOMNode $value */
         foreach ($node->childNodes as $value) {
-            if (static::handleAccessProperty($value, $model)) {
+            if (static::handleAccessNode($value, $model)) {
                 continue;
             }
             try {
@@ -46,7 +46,7 @@ abstract class AbstractSOAPModel {
         return $model;
     }
 
-    static protected function handleAccessProperty(DOMNode $node, self $model): bool {
+    static protected function handleAccessNode(DOMNode $node, self $model): bool {
         return false;
     }
 }

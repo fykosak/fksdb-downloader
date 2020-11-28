@@ -3,7 +3,7 @@
 namespace Fykosak\NetteFKSDBDownloader;
 
 use Fykosak\FKSDBDownloaderCore\FKSDBDownloader;
-use Fykosak\FKSDBDownloaderCore\Request\IRequest;
+use Fykosak\FKSDBDownloaderCore\Requests\IRequest;
 use Nette\Caching\Cache;
 use Nette\Caching\IStorage;
 use Nette\SmartObject;
@@ -29,8 +29,8 @@ class NetteFKSDBDownloader {
     }
 
     public function download(IRequest $request): string {
-        return $this->cache->load($request->getCacheKey(), function (&$dependencies) use ($request) {
-            $dependencies[Cache::EXPIRE] = '20 minutes';
+        return $this->cache->load($request->getCacheKey(), function (&$dependencies) use ($request): string {
+            $dependencies[Cache::EXPIRE] = '60 minutes';
             return $this->downloader->download($request);
         });
     }

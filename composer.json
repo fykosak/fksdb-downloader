@@ -1,6 +1,7 @@
 {
   "name": "fykosak/nette-fksdb-downloader",
   "type": "library",
+  "description": "FKSDB Downloader for nette web applications",
   "require": {
     "php": ">=7.4",
     "fykosak/fksdb-downloader-core": "dev-master",
@@ -15,5 +16,9 @@
       "email": "miso@fykos.cz"
     }
   ],
-  "description": "FKSDB Downloader for nette web applications"
+  "autoload": {
+    "psr-4": {
+      "Fykosak\\NetteFKSDBDownloader\\": "src/"
+    }
+  }
 }

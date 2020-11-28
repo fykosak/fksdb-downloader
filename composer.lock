@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fykosak/fksdb-downloader-core.git",
-                "reference": "af35c1e666d4a05c87c5e05e04a8256f7f3eaa0d"
+                "reference": "d5a745ade1391650a6064b5f886afdedb17be019"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fykosak/fksdb-downloader-core/zipball/af35c1e666d4a05c87c5e05e04a8256f7f3eaa0d",
-                "reference": "af35c1e666d4a05c87c5e05e04a8256f7f3eaa0d",
+                "url": "https://api.github.com/repos/fykosak/fksdb-downloader-core/zipball/d5a745ade1391650a6064b5f886afdedb17be019",
+                "reference": "d5a745ade1391650a6064b5f886afdedb17be019",
                 "shasum": ""
             },
             "require": {
@@ -26,6 +26,11 @@
                 "php": ">=7.4"
             },
             "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Fykosak\\FKSDBDownloaderCore\\": "src/"
+                }
+            },
             "notification-url": "https://packagist.org/downloads/",
             "authors": [
                 {
@@ -33,7 +38,7 @@
                     "email": "miso@fykos.cz"
                 }
             ],
-            "time": "2020-11-26T21:49:36+00:00"
+            "time": "2020-11-28T17:27:51+00:00"
         },
         {
             "name": "nette/caching",

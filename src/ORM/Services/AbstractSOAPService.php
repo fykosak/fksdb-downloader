@@ -1,6 +1,6 @@
 <?php
 
-namespace Fykosak\NetteFKSDBDownloader\ORM;
+namespace Fykosak\NetteFKSDBDownloader\ORM\Services;
 
 use Exception;
 use Fykosak\NetteFKSDBDownloader\NetteFKSDBDownloader;
