@@ -2,10 +2,13 @@
 
 namespace Fykosak\NetteFKSDBDownloader\ORM\Models;
 
+use DateTime;
 use DOMNode;
 use Exception;
 use Nette\SmartObject;
 use Nette\Utils\Reflection;
+use ReflectionException;
+use ReflectionProperty;
 
 abstract class AbstractSOAPModel {
     use SmartObject;
@@ -23,7 +26,7 @@ abstract class AbstractSOAPModel {
                 continue;
             }
             try {
-                $type = Reflection::getPropertyType(new \ReflectionProperty(static::class, $value->nodeName));
+                $type = Reflection::getPropertyType(new ReflectionProperty(static::class, $value->nodeName));
                 switch ($type) {
                     case 'string';
                         $model->{$value->nodeName} = (string)$value->nodeValue;
@@ -32,7 +35,7 @@ abstract class AbstractSOAPModel {
                         $model->{$value->nodeName} = (int)$value->nodeValue;
                         break;
                     case 'DateTimeInterface';
-                        $model->{$value->nodeName} = new \DateTime($value->nodeValue);
+                        $model->{$value->nodeName} = new DateTime($value->nodeValue);
                         break;
                     case 'bool';
                         $model->{$value->nodeName} = (bool)$value->nodeValue;
@@ -40,7 +43,7 @@ abstract class AbstractSOAPModel {
                     default:
                         break;
                 }
-            } catch (\ReflectionException$exception) {
+            } catch (ReflectionException$exception) {
             }
         }
         return $model;

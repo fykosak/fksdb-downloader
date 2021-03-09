@@ -6,8 +6,9 @@ use DOMDocument;
 use Exception;
 use Fykosak\FKSDBDownloaderCore\Requests\Event\TeamsListRequest;
 use Fykosak\NetteFKSDBDownloader\ORM\Models\ModelTeam;
+use Throwable;
 
-class ServiceTeam extends AbstractSOAPService {
+final class ServiceTeam extends AbstractSOAPService {
 
     private array $teams = [];
 
@@ -15,6 +16,7 @@ class ServiceTeam extends AbstractSOAPService {
      * @param int $eventId
      * @return ModelTeam[]
      * @throws Exception
+     * @throws Throwable
      */
     public function getTeams(int $eventId): array {
         if (!isset($this->teams[$eventId])) {

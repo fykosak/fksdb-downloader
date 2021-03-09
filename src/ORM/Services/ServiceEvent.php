@@ -3,20 +3,22 @@
 namespace Fykosak\NetteFKSDBDownloader\ORM\Services;
 
 use DOMDocument;
-use Exception;
 use Fykosak\FKSDBDownloaderCore\Requests\EventListRequest;
 use Fykosak\NetteFKSDBDownloader\ORM\Models\ModelEvent;
+use Throwable;
 
-class ServiceEvent extends AbstractSOAPService {
+final class ServiceEvent extends AbstractSOAPService {
+
     /** @var ModelEvent[] */
     private array $events;
 
     /**
-     * @throws Exception
+     * @param array $eventIds
+     * @throws Throwable
      */
-    private function loadEvents(): void {
+    private function loadEvents(array $eventIds): void {
         if (!isset($this->events)) {
-            $xml = $this->downloader->download(new EventListRequest([9]));
+            $xml = $this->downloader->download(new EventListRequest($eventIds));
             $doc = new DOMDocument();
             $doc->loadXML($xml);
             foreach ($doc->getElementsByTagName('event') as $eventNode) {
@@ -30,12 +32,13 @@ class ServiceEvent extends AbstractSOAPService {
     }
 
     /**
+     * @param array $eventIds
      * @param int $year
      * @return ModelEvent|null
-     * @throws Exception
+     * @throws Throwable
      */
-    public function getEventByYear(int $year): ?ModelEvent {
-        $this->loadEvents();
+    public function getEventByYear(array $eventIds, int $year): ?ModelEvent {
+        $this->loadEvents($eventIds);
         foreach ($this->events as $event) {
             if ($event->eventYear === $year) {
                 return $event;
@@ -45,11 +48,12 @@ class ServiceEvent extends AbstractSOAPService {
     }
 
     /**
+     * @param array $eventIds
      * @return ModelEvent
-     * @throws Exception
+     * @throws Throwable
      */
-    public function getNewest(): ModelEvent {
-        $this->loadEvents();
+    public function getNewest(array $eventIds): ModelEvent {
+        $this->loadEvents($eventIds);
         return end($this->events);
     }
 }

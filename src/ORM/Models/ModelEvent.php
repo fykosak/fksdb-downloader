@@ -4,7 +4,7 @@ namespace Fykosak\NetteFKSDBDownloader\ORM\Models;
 
 use DateTimeInterface;
 
-class ModelEvent extends AbstractSOAPModel {
+final class ModelEvent extends AbstractSOAPModel {
 
     public int $eventId;
     public string $name;

@@ -6,7 +6,8 @@ use DateTimeInterface;
 use DOMNode;
 use Exception;
 
-class ModelTeam extends AbstractSOAPModel {
+final class ModelTeam extends AbstractSOAPModel {
+
     public int $teamId;
     public string $name;
     public string $status;

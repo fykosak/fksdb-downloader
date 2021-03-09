@@ -2,11 +2,12 @@
   "name": "fykosak/nette-fksdb-downloader",
   "type": "library",
   "description": "FKSDB Downloader for nette web applications",
+  "version": "1.0.0-beta",
   "require": {
     "php": ">=7.4",
-    "fykosak/fksdb-downloader-core": "dev-master",
-    "nette/utils": "^3.1",
-    "nette/caching": "^3.0",
+    "fykosak/fksdb-downloader-core": "1.0.0",
+    "nette/utils": "^3.2",
+    "nette/caching": "^3.1",
     "ext-dom": "*",
     "ext-soap": "*"
   },
