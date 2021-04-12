@@ -4,7 +4,7 @@ namespace Fykosak\NetteFKSDBDownloader\ORM\Services;
 
 use DOMDocument;
 use Exception;
-use Fykosak\FKSDBDownloaderCore\Requests\Event\TeamsListRequest;
+use Fykosak\FKSDBDownloaderCore\Requests\Event\TeamListRequest;
 use Fykosak\NetteFKSDBDownloader\ORM\Models\ModelTeam;
 use Throwable;
 
@@ -21,7 +21,7 @@ final class ServiceTeam extends AbstractSOAPService {
     public function getTeams(int $eventId): array {
         if (!isset($this->teams[$eventId])) {
             $this->teams[$eventId] = [];
-            $xml = $this->downloader->download(new TeamsListRequest($eventId));
+            $xml = $this->downloader->download(new TeamListRequest($eventId));
             $doc = new DOMDocument();
             $doc->loadXML($xml);
             foreach ($doc->getElementsByTagName('team') as $teamNode) {
