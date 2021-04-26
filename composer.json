@@ -4,7 +4,7 @@
   "description": "FKSDB Downloader for nette web applications",
   "require": {
     "php": ">=7.4",
-    "fykosak/fksdb-downloader-core": "1.1.1",
+    "fykosak/fksdb-downloader-core": "1.2.0",
     "nette/utils": "^3.2",
     "nette/caching": "^3.1",
     "ext-dom": "*",
