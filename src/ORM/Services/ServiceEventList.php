@@ -7,10 +7,11 @@ use Fykosak\FKSDBDownloaderCore\Requests\EventListRequest;
 use Fykosak\NetteFKSDBDownloader\ORM\Models\ModelEvent;
 use Throwable;
 
-final class ServiceEvent extends AbstractSOAPService {
+final class ServiceEventList extends AbstractSOAPService {
 
     /** @var ModelEvent[] */
     private array $events;
+
 
     /**
      * @param array $eventIds
@@ -30,6 +31,7 @@ final class ServiceEvent extends AbstractSOAPService {
             });
         }
     }
+
 
     /**
      * @param array $eventIds
