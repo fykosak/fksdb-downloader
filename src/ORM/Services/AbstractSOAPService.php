@@ -6,10 +6,10 @@ use DOMDocument;
 use Fykosak\FKSDBDownloaderCore\Requests\Request;
 use Fykosak\NetteFKSDBDownloader\NetteFKSDBDownloader;
 use Fykosak\NetteFKSDBDownloader\ORM\Models\AbstractSOAPModel;
+use Fykosak\NetteFKSDBDownloader\ORM\XMLParser;
 use Nette\Caching\Cache;
 use Nette\Caching\Storage;
 use Nette\SmartObject;
-use Throwable;
 
 abstract class AbstractSOAPService {
 
@@ -34,25 +34,29 @@ abstract class AbstractSOAPService {
     }
 
     /**
-     * @param Request $request
-     * @param string $rootNodeName
-     * @param string $cacheKey
-     * @param string $modelClassName
+     * @param mixed ...$args
      * @return array
-     * @throws Throwable
+     * @throws \Throwable
      */
-    protected function load(Request $request, string $rootNodeName, string $cacheKey, string $modelClassName): array {
-        return $this->cache->load($cacheKey, function (&$dependencies) use ($request, $rootNodeName, $modelClassName): array {
+    public function getAll(...$args): array {
+        [$request, $rootNodeName, $modelClassName] = $this->getParams(...$args);
+        return $this->cache->load($request->getCacheKey(), function (&$dependencies) use ($request, $rootNodeName, $modelClassName): array {
             $dependencies[Cache::EXPIRE] = '1 second';
-            $teams = [];
+            $items = [];
             $xml = $this->downloader->download($request);
 
             $doc = new DOMDocument();
             $doc->loadXML($xml);
             foreach ($doc->getElementsByTagName($rootNodeName) as $node) {
-                $teams[] = $modelClassName::parseXML($node);
+                $items[] = XMLParser::parseXMLNode($node, $modelClassName);
             }
-            return $teams;
+            return $items;
         });
     }
+
+    /**
+     * @param mixed ...$args
+     * @return Request[]
+     */
+    abstract protected function getParams(...$args): array;
 }

@@ -1,6 +1,9 @@
 <?php
 
 namespace Fykosak\NetteFKSDBDownloader\ORM\Models;
+
+use Fykosak\NetteFKSDBDownloader\ORM\XMLParser;
+
 /**
  * @property-read int $participantId;
  * @property-read int $schoolId;
@@ -13,12 +16,12 @@ final class ModelParticipant extends AbstractSOAPModel {
 
     public static function getRows(): array {
         return [
-            'participantId' => self::TYPE_INT,
-            'schoolId' => self::TYPE_INT,
-            'name' => self::TYPE_STRING,
-            'email' => self::TYPE_STRING,
-            'schoolName' => self::TYPE_STRING,
-            'countryIso' => self::TYPE_STRING,
+            'participantId' => XMLParser::TYPE_INT,
+            'schoolId' => XMLParser::TYPE_INT,
+            'name' => XMLParser::TYPE_STRING,
+            'email' => XMLParser::TYPE_STRING,
+            'schoolName' => XMLParser::TYPE_STRING,
+            'countryIso' => XMLParser::TYPE_STRING,
         ];
     }
 }

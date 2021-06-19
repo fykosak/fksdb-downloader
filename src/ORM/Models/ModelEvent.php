@@ -3,6 +3,7 @@
 namespace Fykosak\NetteFKSDBDownloader\ORM\Models;
 
 use DateTimeInterface;
+use Fykosak\NetteFKSDBDownloader\ORM\XMLParser;
 
 /**
  * @property-read int $eventId;
@@ -17,13 +18,13 @@ final class ModelEvent extends AbstractSOAPModel {
 
     public static function getRows(): array {
         return [
-            'eventId' => self::TYPE_INT,
-            'name' => self::TYPE_STRING,
-            'eventYear' => self::TYPE_INT,
-            'begin' => self::TYPE_DATETIME,
-            'end' => self::TYPE_DATETIME,
-            'registrationBegin' => self::TYPE_DATETIME,
-            'registrationEnd' => self::TYPE_DATETIME,
+            'eventId' => XMLParser::TYPE_INT,
+            'name' => XMLParser::TYPE_STRING,
+            'eventYear' => XMLParser::TYPE_INT,
+            'begin' => XMLParser::TYPE_DATETIME,
+            'end' => XMLParser::TYPE_DATETIME,
+            'registrationBegin' => XMLParser::TYPE_DATETIME,
+            'registrationEnd' => XMLParser::TYPE_DATETIME,
         ];
     }
 }

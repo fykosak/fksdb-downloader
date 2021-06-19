@@ -3,7 +3,7 @@
 namespace Fykosak\NetteFKSDBDownloader\ORM\Models;
 
 use DateTimeInterface;
-use DOMNode;
+use Fykosak\NetteFKSDBDownloader\ORM\XMLParser;
 
 /**
  * @property-read int $teamId;
@@ -23,30 +23,23 @@ final class ModelTeam extends AbstractSOAPModel {
 
     public static function getRows(): array {
         return [
-            'teamId' => self::TYPE_INT,
-            'name' => self::TYPE_STRING,
-            'status' => self::TYPE_STRING,
-            'category' => self::TYPE_STRING,
-            'created' => self::TYPE_DATETIME,
-            'phone' => self::TYPE_STRING,
-            'password' => self::TYPE_STRING,
-            'points' => self::TYPE_INT,
-            'rankCategory' => self::TYPE_INT,
-            'rankTotal' => self::TYPE_INT,
-            'forceA' => self::TYPE_BOOL,
-            'gameLang' => self::TYPE_STRING,
+            'teamId' => XMLParser::TYPE_INT,
+            'name' => XMLParser::TYPE_STRING,
+            'status' => XMLParser::TYPE_STRING,
+            'category' => XMLParser::TYPE_STRING,
+            'created' => XMLParser::TYPE_DATETIME,
+            'phone' => XMLParser::TYPE_STRING,
+            'password' => XMLParser::TYPE_STRING,
+            'points' => XMLParser::TYPE_INT,
+            'rankCategory' => XMLParser::TYPE_INT,
+            'rankTotal' => XMLParser::TYPE_INT,
+            'forceA' => XMLParser::TYPE_BOOL,
+            'gameLang' => XMLParser::TYPE_STRING,
             'participant' => ModelParticipant::class,
         ];
     }
 
-    public static function parseXMLNode(DOMNode $node, $rowDef) {
-        if ($rowDef === ModelParticipant::class) {
-            return ModelParticipant::parseXML($node);
-        }
-        return parent::parseXMLNode($node, $rowDef);
-    }
-
-    protected function setData(array $data): void {
+    public function setData(array $data): void {
         if (isset($data['participant'])) {
             $data['participants'] = $data['participant'];
             unset($data['participant']);
