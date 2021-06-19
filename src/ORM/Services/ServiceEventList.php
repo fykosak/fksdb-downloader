@@ -2,8 +2,8 @@
 
 namespace Fykosak\NetteFKSDBDownloader\ORM\Services;
 
-use DOMDocument;
 use Fykosak\FKSDBDownloaderCore\Requests\EventListRequest;
+use Fykosak\FKSDBDownloaderCore\Requests\Request;
 use Fykosak\NetteFKSDBDownloader\ORM\Models\ModelEvent;
 use Throwable;
 
@@ -12,41 +12,31 @@ final class ServiceEventList extends AbstractSOAPService {
     /** @var ModelEvent[] */
     private array $events;
 
-
     /**
      * @param array $eventIds
      * @throws Throwable
      */
     private function loadEvents(array $eventIds): void {
-        if (!isset($this->events)) {
-            $xml = $this->downloader->download(new EventListRequest($eventIds));
-            $doc = new DOMDocument();
-            $doc->loadXML($xml);
-            foreach ($doc->getElementsByTagName('event') as $eventNode) {
-                $event = ModelEvent::createFromXMLNode($eventNode);
-                $this->events[] = $event;
-            }
-            usort($this->events, function (ModelEvent $a, ModelEvent $b) {
-                return $a->begin <=> $b->begin;
-            });
-        }
+        $this->events = $this->load(new EventListRequest($eventIds), 'event', 'event-list', ModelEvent::class);
     }
 
+    protected function load(Request $request, string $rootNodeName, string $cacheKey, string $modelClassName): array {
+        $items = parent::load($request, $rootNodeName, $cacheKey, $modelClassName);
+        usort($items, function (ModelEvent $a, ModelEvent $b) {
+            return $a->begin <=> $b->begin;
+        });
+        return $items;
+    }
 
     /**
      * @param array $eventIds
      * @param int $year
-     * @return ModelEvent|null
+     * @return ModelEvent[]
      * @throws Throwable
      */
-    public function getEventByYear(array $eventIds, int $year): ?ModelEvent {
+    public function getEventsByYear(array $eventIds, int $year): array {
         $this->loadEvents($eventIds);
-        foreach ($this->events as $event) {
-            if ($event->eventYear === $year) {
-                return $event;
-            }
-        }
-        return null;
+        return array_filter($this->events, fn(ModelEvent $event) => $year == $event->begin->format('Y'));
     }
 
     /**
