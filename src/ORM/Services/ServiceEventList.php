@@ -25,8 +25,7 @@ final class ServiceEventList extends AbstractSOAPService {
      * @throws \Throwable
      */
     public function getEventsByYear(array $eventIds, int $year): array {
-        $this->getAll($eventIds);
-        return array_filter($this->events, fn(ModelEvent $event) => $year == $event->begin->format('Y'));
+        return array_filter($this->getAll($eventIds), fn(ModelEvent $event) => $year == $event->begin->format('Y'));
     }
 
     /**
@@ -35,8 +34,8 @@ final class ServiceEventList extends AbstractSOAPService {
      * @throws \Throwable
      */
     public function getNewest(array $eventIds): ModelEvent {
-        $this->getAll($eventIds);
-        return end($this->events);
+        $events = $this->getAll($eventIds);
+        return end($events);
     }
 
     protected function getParams(...$args): array {
