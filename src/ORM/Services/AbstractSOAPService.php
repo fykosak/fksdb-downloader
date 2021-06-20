@@ -16,32 +16,32 @@ abstract class AbstractSOAPService {
     use SmartObject;
 
     protected NetteFKSDBDownloader $downloader;
-    /**
-     * @var AbstractSOAPModel[]
-     */
-    protected array $items;
 
     protected Cache $cache;
+    protected string $expiration;
 
     /**
      * ServiceEvent constructor.
+     * @param string $expiration
      * @param NetteFKSDBDownloader $downloader
      * @param Storage $storage
      */
-    public function __construct(NetteFKSDBDownloader $downloader, Storage $storage) {
+    public function __construct(string $expiration = '60 minutes', NetteFKSDBDownloader $downloader, Storage $storage) {
         $this->cache = new Cache($storage, static::class);
         $this->downloader = $downloader;
+        $this->expiration = $expiration;
     }
 
     /**
-     * @param mixed ...$args
+     * @param Request $request
+     * @param string $rootNodeName
+     * @param string $modelClassName
      * @return array
      * @throws \Throwable
      */
-    public function getAll(...$args): array {
-        [$request, $rootNodeName, $modelClassName] = $this->getParams(...$args);
+    protected function getItems(Request $request, string $rootNodeName, string $modelClassName): array {
         return $this->cache->load($request->getCacheKey(), function (&$dependencies) use ($request, $rootNodeName, $modelClassName): array {
-            $dependencies[Cache::EXPIRE] = '1 second';
+            $dependencies[Cache::EXPIRE] = $this->expiration;
             $items = [];
             $xml = $this->downloader->download($request);
 
@@ -53,10 +53,4 @@ abstract class AbstractSOAPService {
             return $items;
         });
     }
-
-    /**
-     * @param mixed ...$args
-     * @return Request[]
-     */
-    abstract protected function getParams(...$args): array;
 }

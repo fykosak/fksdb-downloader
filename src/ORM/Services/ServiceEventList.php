@@ -7,11 +7,27 @@ use Fykosak\NetteFKSDBDownloader\ORM\Models\ModelEvent;
 
 final class ServiceEventList extends AbstractSOAPService {
 
-    /** @var ModelEvent[] */
-    private array $events;
-
+    /**
+     * @param mixed ...$args
+     * @return ModelEvent[]
+     * @throws \Throwable
+     * @deprecated
+     */
     public function getAll(...$args): array {
-        $items = parent::getAll(...$args);
+        $items = parent::getItems(...$args);
+        usort($items, function (ModelEvent $a, ModelEvent $b) {
+            return $a->begin <=> $b->begin;
+        });
+        return $items;
+    }
+
+    /**
+     * @param array $eventTypeIds
+     * @return ModelEvent[]
+     * @throws \Throwable
+     */
+    public function getEvents(array $eventTypeIds): array {
+        $items = parent::getItems(new EventListRequest($eventTypeIds), 'event', ModelEvent::class);
         usort($items, function (ModelEvent $a, ModelEvent $b) {
             return $a->begin <=> $b->begin;
         });
@@ -25,7 +41,7 @@ final class ServiceEventList extends AbstractSOAPService {
      * @throws \Throwable
      */
     public function getEventsByYear(array $eventIds, int $year): array {
-        return array_filter($this->getAll($eventIds), fn(ModelEvent $event) => $year == $event->begin->format('Y'));
+        return array_filter($this->getEvents($eventIds), fn(ModelEvent $event) => $year == $event->begin->format('Y'));
     }
 
     /**
@@ -34,11 +50,7 @@ final class ServiceEventList extends AbstractSOAPService {
      * @throws \Throwable
      */
     public function getNewest(array $eventIds): ModelEvent {
-        $events = $this->getAll($eventIds);
+        $events = $this->getEvents($eventIds);
         return end($events);
-    }
-
-    protected function getParams(...$args): array {
-        return [new EventListRequest(...$args), 'event', ModelEvent::class];
     }
 }
