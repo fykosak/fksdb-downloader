@@ -5,7 +5,6 @@ namespace Fykosak\NetteFKSDBDownloader\ORM\Services;
 use DOMDocument;
 use Fykosak\FKSDBDownloaderCore\Requests\Request;
 use Fykosak\NetteFKSDBDownloader\NetteFKSDBDownloader;
-use Fykosak\NetteFKSDBDownloader\ORM\Models\AbstractSOAPModel;
 use Fykosak\NetteFKSDBDownloader\ORM\XMLParser;
 use Nette\Caching\Cache;
 use Nette\Caching\Storage;
@@ -26,7 +25,7 @@ abstract class AbstractSOAPService {
      * @param NetteFKSDBDownloader $downloader
      * @param Storage $storage
      */
-    public function __construct(string $expiration = '60 minutes', NetteFKSDBDownloader $downloader, Storage $storage) {
+    public function __construct(string $expiration, NetteFKSDBDownloader $downloader, Storage $storage) {
         $this->cache = new Cache($storage, static::class);
         $this->downloader = $downloader;
         $this->expiration = $expiration;

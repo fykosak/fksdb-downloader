@@ -16,18 +16,21 @@ final class NetteFKSDBDownloader {
 
     private FKSDBDownloader $downloader;
     private Cache $cache;
+    private string $expiration;
 
     /**
      * Downloader constructor.
      * @param string $wsdl
      * @param string $username
      * @param string $password
+     * @param string $expiration
      * @param Storage $storage
      * @throws SoapFault
      */
-    public function __construct(string $wsdl, string $username, string $password, Storage $storage) {
+    public function __construct(string $wsdl, string $username, string $password, string $expiration, Storage $storage) {
         $this->cache = new Cache($storage, self::class);
         $this->downloader = new FKSDBDownloader($wsdl, $username, $password);
+        $this->expiration = $expiration;
     }
 
     /**
@@ -37,7 +40,7 @@ final class NetteFKSDBDownloader {
      */
     public function download(Request $request): string {
         return $this->cache->load($request->getCacheKey(), function (&$dependencies) use ($request): string {
-            $dependencies[Cache::EXPIRE] = '60 minutes';
+            $dependencies[Cache::EXPIRE] = $this->expiration;
             return $this->downloader->download($request);
         });
     }

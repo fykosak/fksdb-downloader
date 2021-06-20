@@ -14,16 +14,6 @@ final class ServiceEventDetail extends AbstractSOAPService {
     }
 
     /**
-     * @param mixed ...$args
-     * @return array
-     * @throws \Throwable
-     * @deprecated
-     */
-    public function getAll(...$args): array {
-        return $this->getTeams(...$args);
-    }
-
-    /**
      * @param int $eventId
      * @return ModelTeam[]
      * @throws \Throwable

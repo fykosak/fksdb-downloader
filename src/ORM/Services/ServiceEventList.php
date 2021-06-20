@@ -8,20 +8,6 @@ use Fykosak\NetteFKSDBDownloader\ORM\Models\ModelEvent;
 final class ServiceEventList extends AbstractSOAPService {
 
     /**
-     * @param mixed ...$args
-     * @return ModelEvent[]
-     * @throws \Throwable
-     * @deprecated
-     */
-    public function getAll(...$args): array {
-        $items = parent::getItems(...$args);
-        usort($items, function (ModelEvent $a, ModelEvent $b) {
-            return $a->begin <=> $b->begin;
-        });
-        return $items;
-    }
-
-    /**
      * @param array $eventTypeIds
      * @return ModelEvent[]
      * @throws \Throwable
