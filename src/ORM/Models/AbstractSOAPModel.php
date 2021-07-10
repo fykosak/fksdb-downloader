@@ -5,13 +5,15 @@ namespace Fykosak\NetteFKSDBDownloader\ORM\Models;
 use Nette\NotImplementedException;
 use Nette\SmartObject;
 
-abstract class AbstractSOAPModel {
+abstract class AbstractSOAPModel
+{
 
     use SmartObject;
 
     protected array $data = [];
 
-    public function setData(array $data): void {
+    public function setData(array $data): void
+    {
         $this->data = $data;
     }
 
@@ -19,21 +21,25 @@ abstract class AbstractSOAPModel {
      * @param array $data
      * @return static
      */
-    public static function createFromArray(array $data): self {
+    public static function createFromArray(array $data): self
+    {
         $model = new static();
         $model->setData($data);
         return $model;
     }
 
-    public function __get(string $name) {
+    public function __get(string $name)
+    {
         return $this->data[$name] ?? null;
     }
 
-    public function __isset(string $name): bool {
+    public function __isset(string $name): bool
+    {
         return isset($this->data[$name]);
     }
 
-    public function __set(string $name, $value): void {
+    public function __set(string $name, $value): void
+    {
         throw new NotImplementedException();
     }
 

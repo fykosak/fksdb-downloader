@@ -12,9 +12,11 @@ use Fykosak\NetteFKSDBDownloader\ORM\XMLParser;
  * @property-read string $schoolName;
  * @property-read string $countryIso;
  */
-final class ModelParticipant extends AbstractSOAPModel {
+final class ModelParticipant extends AbstractSOAPModel
+{
 
-    public static function getRows(): array {
+    public static function getRows(): array
+    {
         return [
             'participantId' => XMLParser::TYPE_INT,
             'schoolId' => XMLParser::TYPE_INT,

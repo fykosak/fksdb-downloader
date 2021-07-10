@@ -19,9 +19,11 @@ use Fykosak\NetteFKSDBDownloader\ORM\XMLParser;
  * @property-read bool $forceA;
  * @property-read ?string $gameLang = null;
  */
-final class ModelTeam extends AbstractSOAPModel {
+final class ModelTeam extends AbstractSOAPModel
+{
 
-    public static function getRows(): array {
+    public static function getRows(): array
+    {
         return [
             'teamId' => XMLParser::TYPE_INT,
             'name' => XMLParser::TYPE_STRING,
@@ -39,7 +41,8 @@ final class ModelTeam extends AbstractSOAPModel {
         ];
     }
 
-    public function setData(array $data): void {
+    public function setData(array $data): void
+    {
         if (isset($data['participant'])) {
             $data['participants'] = $data['participant'];
             unset($data['participant']);

@@ -4,7 +4,8 @@ namespace Fykosak\NetteFKSDBDownloader\ORM;
 
 use Fykosak\NetteFKSDBDownloader\ORM\Models\AbstractSOAPModel;
 
-class XMLParser {
+class XMLParser
+{
 
     public const TYPE_STRING = 'string';
     public const TYPE_INT = 'int';
@@ -17,7 +18,8 @@ class XMLParser {
      * @return mixed
      * @throws \Exception
      */
-    public static function parseXMLNode(\DOMNode $node, $rowDef) {
+    public static function parseXMLNode(\DOMNode $node, $rowDef)
+    {
         if (is_array($rowDef)) {
             return static::parseVectorNode($node, $rowDef);
         } else {
@@ -31,7 +33,8 @@ class XMLParser {
      * @return array
      * @throws \Exception
      */
-    public static function parseVectorNode(\DOMNode $node, array $rowDefs): array {
+    public static function parseVectorNode(\DOMNode $node, array $rowDefs): array
+    {
         $data = [];
         foreach ($node->childNodes as $childNode) {
             /** @var \DOMNode $childNode */
@@ -56,7 +59,8 @@ class XMLParser {
      * @return bool|\DateTime|int|string|null
      * @throws \Exception
      */
-    public static function parseScalarNode(\DOMNode $node, ?string $rowDef) {
+    public static function parseScalarNode(\DOMNode $node, ?string $rowDef)
+    {
         if (is_string($rowDef) && class_exists($rowDef)) {
             $rf = new \ReflectionClass($rowDef);
             if ($rf->isSubclassOf(AbstractSOAPModel::class)) {

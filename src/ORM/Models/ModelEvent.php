@@ -14,9 +14,11 @@ use Fykosak\NetteFKSDBDownloader\ORM\XMLParser;
  * @property-read DateTimeInterface $registrationBegin;
  * @property-read DateTimeInterface $registrationEnd;
  */
-final class ModelEvent extends AbstractSOAPModel {
+final class ModelEvent extends AbstractSOAPModel
+{
 
-    public static function getRows(): array {
+    public static function getRows(): array
+    {
         return [
             'eventId' => XMLParser::TYPE_INT,
             'name' => XMLParser::TYPE_STRING,
