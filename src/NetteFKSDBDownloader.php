@@ -8,7 +8,6 @@ use Nette\Caching\Cache;
 use Nette\Caching\Storage;
 use Nette\SmartObject;
 use SoapFault;
-use Throwable;
 
 final class NetteFKSDBDownloader
 {
@@ -16,6 +15,7 @@ final class NetteFKSDBDownloader
     use SmartObject;
 
     private FKSDBDownloader $downloader;
+    private array $params;
     private Cache $cache;
     private string $expiration;
 
@@ -26,26 +26,37 @@ final class NetteFKSDBDownloader
      * @param string $password
      * @param string $expiration
      * @param Storage $storage
-     * @throws SoapFault
      */
     public function __construct(string $wsdl, string $username, string $password, string $expiration, Storage $storage)
     {
         $this->cache = new Cache($storage, self::class);
-        $this->downloader = new FKSDBDownloader($wsdl, $username, $password);
+        $this->params = [$wsdl, $username, $password];
         $this->expiration = $expiration;
+    }
+
+    /**
+     * @return FKSDBDownloader
+     * @throws SoapFault
+     */
+    public function getDownloader(): FKSDBDownloader
+    {
+        if (!isset($this->downloader)) {
+            $this->downloader = new FKSDBDownloader(...$this->params);
+        }
+        return $this->downloader;
     }
 
     /**
      * @param Request $request
      * @param string|null $explicitExpiration
      * @return string
-     * @throws Throwable
+     * @throws \Throwable
      */
     public function download(Request $request, ?string $explicitExpiration = null): string
     {
         return $this->cache->load($request->getCacheKey(), function (&$dependencies) use ($request, $explicitExpiration): string {
             $dependencies[Cache::EXPIRE] = $explicitExpiration ?? $this->expiration;
-            return $this->downloader->download($request);
+            return $this->getDownloader()->download($request);
         });
     }
 }
