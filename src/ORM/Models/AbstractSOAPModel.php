@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fykosak\NetteFKSDBDownloader\ORM\Models;
 
 use Nette\NotImplementedException;
@@ -7,7 +9,6 @@ use Nette\SmartObject;
 
 abstract class AbstractSOAPModel
 {
-
     use SmartObject;
 
     protected array $data = [];
@@ -28,6 +29,10 @@ abstract class AbstractSOAPModel
         return $model;
     }
 
+    /**
+     * @param string $name
+     * @return mixed
+     */
     public function __get(string $name)
     {
         return $this->data[$name] ?? null;
@@ -38,6 +43,11 @@ abstract class AbstractSOAPModel
         return isset($this->data[$name]);
     }
 
+    /**
+     * @param string $name
+     * @param mixed $value
+     * @return void
+     */
     public function __set(string $name, $value): void
     {
         throw new NotImplementedException();

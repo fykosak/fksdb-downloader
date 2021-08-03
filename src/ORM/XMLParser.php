@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fykosak\NetteFKSDBDownloader\ORM;
 
 use Fykosak\NetteFKSDBDownloader\ORM\Models\AbstractSOAPModel;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fykosak\NetteFKSDBDownloader\ORM\Services;
 
 use Fykosak\FKSDBDownloaderCore\Requests\EventListRequest;
@@ -17,9 +19,7 @@ final class ServiceEventList extends AbstractSOAPService
     public function getEvents(array $eventTypeIds, ?string $explicitExpiration = null): array
     {
         $items = parent::getItems(new EventListRequest($eventTypeIds), 'event', ModelEvent::class, $explicitExpiration);
-        usort($items, function (ModelEvent $a, ModelEvent $b) {
-            return $a->begin <=> $b->begin;
-        });
+        usort($items, fn(ModelEvent $a, ModelEvent $b): int => $a->begin <=> $b->begin);
         return $items;
     }
 
@@ -32,7 +32,10 @@ final class ServiceEventList extends AbstractSOAPService
      */
     public function getEventsByYear(array $eventIds, int $year, ?string $explicitExpiration = null): array
     {
-        return array_filter($this->getEvents($eventIds, $explicitExpiration), fn(ModelEvent $event) => $year == $event->begin->format('Y'));
+        return array_filter(
+            $this->getEvents($eventIds, $explicitExpiration),
+            fn(ModelEvent $event): bool => $year == $event->begin->format('Y')
+        );
     }
 
     /**

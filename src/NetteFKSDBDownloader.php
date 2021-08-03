@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fykosak\NetteFKSDBDownloader;
 
 use Fykosak\FKSDBDownloaderCore\FKSDBDownloader;
@@ -11,7 +13,6 @@ use SoapFault;
 
 final class NetteFKSDBDownloader
 {
-
     use SmartObject;
 
     private FKSDBDownloader $downloader;
@@ -54,9 +55,12 @@ final class NetteFKSDBDownloader
      */
     public function download(Request $request, ?string $explicitExpiration = null): string
     {
-        return $this->cache->load($request->getCacheKey(), function (&$dependencies) use ($request, $explicitExpiration): string {
-            $dependencies[Cache::EXPIRE] = $explicitExpiration ?? $this->expiration;
-            return $this->getDownloader()->download($request);
-        });
+        return $this->cache->load(
+            $request->getCacheKey(),
+            function (&$dependencies) use ($request, $explicitExpiration): string {
+                $dependencies[Cache::EXPIRE] = $explicitExpiration ?? $this->expiration;
+                return $this->getDownloader()->download($request);
+            }
+        );
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fykosak\NetteFKSDBDownloader\ORM\Services;
 
 use Fykosak\FKSDBDownloaderCore\Requests\EventRequest;
@@ -34,6 +36,11 @@ final class ServiceEventDetail extends AbstractSOAPService
      */
     public function getParticipants(int $eventId, ?string $explicitExpiration = null): array
     {
-        return $this->getItems($this->getRequest($eventId), 'participants', ModelParticipant::class, $explicitExpiration);
+        return $this->getItems(
+            $this->getRequest($eventId),
+            'participants',
+            ModelParticipant::class,
+            $explicitExpiration
+        );
     }
 }

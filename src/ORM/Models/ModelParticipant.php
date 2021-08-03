@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fykosak\NetteFKSDBDownloader\ORM\Models;
 
 use Fykosak\NetteFKSDBDownloader\ORM\XMLParser;

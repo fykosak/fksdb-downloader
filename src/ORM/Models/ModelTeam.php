@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fykosak\NetteFKSDBDownloader\ORM\Models;
 
 use DateTimeInterface;
@@ -49,5 +51,4 @@ final class ModelTeam extends AbstractSOAPModel
         }
         parent::setData($data);
     }
-
 }
