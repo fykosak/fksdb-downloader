@@ -49,20 +49,21 @@ final class NetteFKSDBDownloader
     public function download(Request $request, ?string $explicitExpiration = null): string
     {
         return $this->cache->load(
-            $request->getCacheKey(),
+            $request->getCacheKey() . '-xml',
             function (&$dependencies) use ($request, $explicitExpiration): string {
                 $dependencies[Cache::EXPIRE] = $explicitExpiration ?? $this->expiration;
                 return $this->getDownloader()->download($request);
             }
         );
     }
+
     /**
      * @throws \Throwable
      */
     public function downloadJSON(Request $request, ?string $explicitExpiration = null): string
     {
         return $this->cache->load(
-            $request->getCacheKey(),
+            $request->getCacheKey() . '-json',
             function (&$dependencies) use ($request, $explicitExpiration): string {
                 $dependencies[Cache::EXPIRE] = $explicitExpiration ?? $this->expiration;
                 return $this->getDownloader()->downloadJSON($request);
