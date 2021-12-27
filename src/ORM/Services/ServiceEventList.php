@@ -11,8 +11,6 @@ final class ServiceEventList extends AbstractSOAPService
 {
 
     /**
-     * @param array $eventTypeIds
-     * @param string|null $explicitExpiration
      * @return ModelEvent[]
      * @throws \Throwable
      */
@@ -24,9 +22,6 @@ final class ServiceEventList extends AbstractSOAPService
     }
 
     /**
-     * @param array $eventIds
-     * @param int $year
-     * @param string|null $explicitExpiration
      * @return ModelEvent[]
      * @throws \Throwable
      */
@@ -39,8 +34,6 @@ final class ServiceEventList extends AbstractSOAPService
     }
 
     /**
-     * @param array $eventIds
-     * @param string|null $explicitExpiration
      * @return ModelEvent
      * @throws \Throwable
      */

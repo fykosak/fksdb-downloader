@@ -18,8 +18,6 @@ final class ServiceEventDetail extends AbstractSOAPService
     }
 
     /**
-     * @param int $eventId
-     * @param string|null $explicitExpiration
      * @return ModelTeam[]
      * @throws \Throwable
      */
@@ -29,8 +27,6 @@ final class ServiceEventDetail extends AbstractSOAPService
     }
 
     /**
-     * @param int $eventId
-     * @param string|null $explicitExpiration
      * @return ModelParticipant[]
      * @throws \Throwable
      */

@@ -15,9 +15,8 @@ class XMLParser
     public const TYPE_DATETIME = 'date-time';
 
     /**
-     * @param \DOMNode $node
      * @param mixed $rowDef
-     * @return mixed
+     * @return array|bool|\DateTime|int|string|null
      * @throws \Exception
      */
     public static function parseXMLNode(\DOMNode $node, $rowDef)
@@ -30,9 +29,6 @@ class XMLParser
     }
 
     /**
-     * @param \DOMNode $node
-     * @param array $rowDefs
-     * @return array
      * @throws \Exception
      */
     public static function parseVectorNode(\DOMNode $node, array $rowDefs): array
@@ -56,7 +52,6 @@ class XMLParser
     }
 
     /**
-     * @param \DOMNode $node
      * @param AbstractSOAPModel|string|null $rowDef
      * @return bool|\DateTime|int|string|null
      * @throws \Exception

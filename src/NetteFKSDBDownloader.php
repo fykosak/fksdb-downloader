@@ -35,10 +35,6 @@ final class NetteFKSDBDownloader
         $this->expiration = $expiration;
     }
 
-    /**
-     * @return FKSDBDownloader
-     * @throws SoapFault
-     */
     public function getDownloader(): FKSDBDownloader
     {
         if (!isset($this->downloader)) {
@@ -48,9 +44,6 @@ final class NetteFKSDBDownloader
     }
 
     /**
-     * @param Request $request
-     * @param string|null $explicitExpiration
-     * @return string
      * @throws \Throwable
      */
     public function download(Request $request, ?string $explicitExpiration = null): string
@@ -60,6 +53,19 @@ final class NetteFKSDBDownloader
             function (&$dependencies) use ($request, $explicitExpiration): string {
                 $dependencies[Cache::EXPIRE] = $explicitExpiration ?? $this->expiration;
                 return $this->getDownloader()->download($request);
+            }
+        );
+    }
+    /**
+     * @throws \Throwable
+     */
+    public function downloadJSON(Request $request, ?string $explicitExpiration = null): string
+    {
+        return $this->cache->load(
+            $request->getCacheKey(),
+            function (&$dependencies) use ($request, $explicitExpiration): string {
+                $dependencies[Cache::EXPIRE] = $explicitExpiration ?? $this->expiration;
+                return $this->getDownloader()->downloadJSON($request);
             }
         );
     }

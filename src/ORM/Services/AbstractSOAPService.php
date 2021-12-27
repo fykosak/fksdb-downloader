@@ -17,16 +17,9 @@ abstract class AbstractSOAPService
     use SmartObject;
 
     protected NetteFKSDBDownloader $downloader;
-
     protected Cache $cache;
     protected string $expiration;
 
-    /**
-     * ServiceEvent constructor.
-     * @param string $expiration
-     * @param NetteFKSDBDownloader $downloader
-     * @param Storage $storage
-     */
     public function __construct(string $expiration, NetteFKSDBDownloader $downloader, Storage $storage)
     {
         $this->cache = new Cache($storage, static::class);
@@ -35,11 +28,6 @@ abstract class AbstractSOAPService
     }
 
     /**
-     * @param Request $request
-     * @param string $rootNodeName
-     * @param string $modelClassName
-     * @param string|null $explicitExpiration
-     * @return array
      * @throws \Throwable
      */
     protected function getItems(
