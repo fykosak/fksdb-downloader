@@ -11,7 +11,6 @@ use Fykosak\NetteFKSDBDownloader\ORM\Models\ModelTeam;
 
 final class ServiceEventDetail extends AbstractSOAPService
 {
-
     protected function getRequest(int $eventId): Request
     {
         return new EventRequest($eventId);

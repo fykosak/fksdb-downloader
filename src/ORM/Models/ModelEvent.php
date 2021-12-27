@@ -18,7 +18,6 @@ use Fykosak\NetteFKSDBDownloader\ORM\XMLParser;
  */
 final class ModelEvent extends AbstractSOAPModel
 {
-
     public static function getRows(): array
     {
         return [

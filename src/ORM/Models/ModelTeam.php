@@ -23,7 +23,6 @@ use Fykosak\NetteFKSDBDownloader\ORM\XMLParser;
  */
 final class ModelTeam extends AbstractSOAPModel
 {
-
     public static function getRows(): array
     {
         return [

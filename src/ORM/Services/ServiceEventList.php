@@ -9,7 +9,6 @@ use Fykosak\NetteFKSDBDownloader\ORM\Models\ModelEvent;
 
 final class ServiceEventList extends AbstractSOAPService
 {
-
     /**
      * @return ModelEvent[]
      * @throws \Throwable
