@@ -9,36 +9,39 @@ use Fykosak\FKSDBDownloaderCore\Requests\Request;
 use Nette\Caching\Cache;
 use Nette\Caching\Storage;
 use Nette\SmartObject;
-use SoapFault;
 
 final class NetteFKSDBDownloader
 {
     use SmartObject;
 
     private FKSDBDownloader $downloader;
-    private array $params;
-    private Cache $cache;
+    private string $wsdl;
+    private string $username;
+    private string $password;
     private string $expiration;
+    private string $jsonApiUrl;
+    private Cache $cache;
 
-    /**
-     * Downloader constructor.
-     * @param string $wsdl
-     * @param string $username
-     * @param string $password
-     * @param string $expiration
-     * @param Storage $storage
-     */
-    public function __construct(string $wsdl, string $username, string $password, string $expiration, Storage $storage)
-    {
+    public function __construct(
+        string $wsdl,
+        string $username,
+        string $password,
+        string $expiration,
+        string $jsonApiUrl,
+        Storage $storage
+    ) {
         $this->cache = new Cache($storage, self::class);
-        $this->params = [$wsdl, $username, $password];
+        $this->wsdl = $wsdl;
+        $this->username = $username;
+        $this->password = $password;
+        $this->jsonApiUrl = $jsonApiUrl;
         $this->expiration = $expiration;
     }
 
     public function getDownloader(): FKSDBDownloader
     {
         if (!isset($this->downloader)) {
-            $this->downloader = new FKSDBDownloader(...$this->params);
+            $this->downloader = new FKSDBDownloader($this->wsdl, $this->username, $this->password, $this->jsonApiUrl);
         }
         return $this->downloader;
     }
