@@ -8,7 +8,6 @@ use Fykosak\NetteFKSDBDownloader\ORM\Models\AbstractSOAPModel;
 
 class XMLParser
 {
-
     public const TYPE_STRING = 'string';
     public const TYPE_INT = 'int';
     public const TYPE_BOOL = 'bool';

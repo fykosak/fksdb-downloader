@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3cfda2032729acc40b8eddf3bca7bb7f",
+    "content-hash": "95f8a6bda5738d4898a26d7153eec961",
     "packages": [
         {
             "name": "fykosak/fksdb-downloader-core",
-            "version": "dev-master",
+            "version": "v1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fykosak/fksdb-downloader-core.git",
-                "reference": "26e5504"
+                "reference": "2bb5937e52111b4fc86b22f2aa991d71678e0927"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fykosak/fksdb-downloader-core/zipball/26e5504",
-                "reference": "26e5504",
+                "url": "https://api.github.com/repos/fykosak/fksdb-downloader-core/zipball/2bb5937e52111b4fc86b22f2aa991d71678e0927",
+                "reference": "2bb5937e52111b4fc86b22f2aa991d71678e0927",
                 "shasum": ""
             },
             "require": {
@@ -28,7 +28,6 @@
             "require-dev": {
                 "squizlabs/php_codesniffer": "^3.6.0"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -49,9 +48,9 @@
             "description": "Interface for downloading data from FKSDB by SOAP-client",
             "support": {
                 "issues": "https://github.com/fykosak/fksdb-downloader-core/issues",
-                "source": "https://github.com/fykosak/fksdb-downloader-core/tree/master"
+                "source": "https://github.com/fykosak/fksdb-downloader-core/tree/v1.4.1"
             },
-            "time": "2021-12-27T02:14:16+00:00"
+            "time": "2021-12-29T15:18:05+00:00"
         },
         {
             "name": "nette/caching",
@@ -337,9 +336,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "fykosak/fksdb-downloader-core": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
