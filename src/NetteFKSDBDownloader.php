@@ -15,7 +15,6 @@ final class NetteFKSDBDownloader
     use SmartObject;
 
     private FKSDBDownloader $downloader;
-    private string $wsdl;
     private string $username;
     private string $password;
     private string $expiration;
@@ -23,15 +22,13 @@ final class NetteFKSDBDownloader
     private Cache $cache;
 
     public function __construct(
-        string $wsdl,
+        string $jsonApiUrl,
         string $username,
         string $password,
         string $expiration,
-        string $jsonApiUrl,
         Storage $storage
     ) {
         $this->cache = new Cache($storage, self::class);
-        $this->wsdl = $wsdl;
         $this->username = $username;
         $this->password = $password;
         $this->jsonApiUrl = $jsonApiUrl;
@@ -41,7 +38,7 @@ final class NetteFKSDBDownloader
     public function getDownloader(): FKSDBDownloader
     {
         if (!isset($this->downloader)) {
-            $this->downloader = new FKSDBDownloader($this->wsdl, $this->username, $this->password, $this->jsonApiUrl);
+            $this->downloader = new FKSDBDownloader("", $this->username, $this->password, $this->jsonApiUrl);
         }
         return $this->downloader;
     }
@@ -50,20 +47,6 @@ final class NetteFKSDBDownloader
      * @throws \Throwable
      */
     public function download(Request $request, ?string $explicitExpiration = null): string
-    {
-        return $this->cache->load(
-            $request->getCacheKey() . '-xml',
-            function (&$dependencies) use ($request, $explicitExpiration): string {
-                $dependencies[Cache::EXPIRE] = $explicitExpiration ?? $this->expiration;
-                return $this->getDownloader()->download($request);
-            }
-        );
-    }
-
-    /**
-     * @throws \Throwable
-     */
-    public function downloadJSON(Request $request, ?string $explicitExpiration = null): string
     {
         return $this->cache->load(
             $request->getCacheKey() . '-json',
