@@ -19,60 +19,70 @@ final class ServiceEventDetail extends AbstractJSONService
         return new EventRequest($eventId);
     }
 
-    public function getEvent(int $eventId, ?string $explicitExpiration = null): ModelEvent {
+    public function getEvent(int $eventId, ?string $explicitExpiration = null): ModelEvent
+    {
         return $this->getItem(
             $this->getRequest($eventId),
             [],
             ModelEvent::class,
             false,
-            $explicitExpiration);
+            $explicitExpiration
+        );
     }
 
     /**
      * @return ModelTeam[]
      */
-    public function getTeams(int $eventId, ?string $explicitExpiration = null): array {
+    public function getTeams(int $eventId, ?string $explicitExpiration = null): array
+    {
         return $this->getItem(
             $this->getRequest($eventId),
             ["teams"],
             ModelTeam::class,
             true,
-            $explicitExpiration);
+            $explicitExpiration
+        );
     }
 
     /**
      * @return ModelSchedule[]
      */
-    public function getSchedule(int $eventId, ?string $explicitExpiration = null): array {
+    public function getSchedule(int $eventId, ?string $explicitExpiration = null): array
+    {
         return $this->getItem(
             $this->getRequest($eventId),
             ["schedule"],
             ModelSchedule::class,
             true,
-            $explicitExpiration);
+            $explicitExpiration
+        );
     }
 
     /**
      * @return ModelParticipant[]
      */
-    public function getParticipants(int $eventId, ?string $explicitExpiration = null): array {
+    public function getParticipants(int $eventId, ?string $explicitExpiration = null): array
+    {
         return $this->getItem(
             $this->getRequest($eventId),
             ["participants"],
             ModelParticipant::class,
             true,
-            $explicitExpiration);
+            $explicitExpiration
+        );
     }
 
     /**
      * @return ModelPersonSchedule[]
      */
-    public function getPersonSchedule(int $eventId, ?string $explicitExpiration = null): array {
+    public function getPersonSchedule(int $eventId, ?string $explicitExpiration = null): array
+    {
         return $this->getItem(
             $this->getRequest($eventId),
             ["person_schedule"],
             ModelPersonSchedule::class,
             true,
-            $explicitExpiration);
+            $explicitExpiration
+        );
     }
 }

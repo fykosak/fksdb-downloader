@@ -18,7 +18,9 @@ final class ServiceEventList extends AbstractJSONService
             new EventListRequest($eventTypeIds),
             [],
             ModelEvent::class,
-            true, $explicitExpiration);
+            true,
+            $explicitExpiration
+        );
         usort($items, fn(ModelEvent $a, ModelEvent $b): int => $a->begin <=> $b->begin);
         return $items;
     }

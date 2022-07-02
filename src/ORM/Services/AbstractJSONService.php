@@ -39,8 +39,8 @@ abstract class AbstractJSONService
             $request->getCacheKey() . "_" . implode(".", $path),
             function (&$dependencies) use ($request, $path, $modelClassName, $asArray, $explicitExpiration) {
                 $dependencies[Cache::EXPIRE] = $explicitExpiration ?? $this->expiration;
-                $json_text = $this->downloader->download($request);
-                $json = json_decode($json_text);
+                $jsonText = $this->downloader->download($request);
+                $json = json_decode($jsonText);
 
                 foreach ($path as $pathItem) {
                     $json = $json->$pathItem;
@@ -52,7 +52,6 @@ abstract class AbstractJSONService
                 } else {
                     return $mapper->map($json, new $modelClassName());
                 }
-
             }
         );
     }
