@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace Fykosak\NetteFKSDBDownloader\ORM\Services;
 
-use DOMDocument;
 use Fykosak\FKSDBDownloaderCore\Requests\Request;
 use Fykosak\NetteFKSDBDownloader\NetteFKSDBDownloader;
-use Fykosak\NetteFKSDBDownloader\ORM\XMLParser;
 use Nette\Caching\Cache;
 use Nette\Caching\Storage;
 use Nette\SmartObject;
 
-abstract class AbstractSOAPService
+abstract class AbstractJSONService
 {
     use SmartObject;
 
@@ -30,25 +28,30 @@ abstract class AbstractSOAPService
     /**
      * @throws \Throwable
      */
-    protected function getItems(
+    protected function getItem(
         Request $request,
-        string $rootNodeName,
+        array $path,
         string $modelClassName,
+        bool $asArray = false,
         ?string $explicitExpiration = null
-    ): array {
+    ) {
         return $this->cache->load(
-            $request->getCacheKey(),
-            function (&$dependencies) use ($request, $rootNodeName, $modelClassName, $explicitExpiration): array {
+            $request->getCacheKey() . "_" . implode(".", $path),
+            function (&$dependencies) use ($request, $path, $modelClassName, $asArray, $explicitExpiration) {
                 $dependencies[Cache::EXPIRE] = $explicitExpiration ?? $this->expiration;
-                $items = [];
-                $xml = $this->downloader->download($request);
+                $jsonText = $this->downloader->download($request);
+                $json = json_decode($jsonText);
 
-                $doc = new DOMDocument();
-                $doc->loadXML($xml);
-                foreach ($doc->getElementsByTagName($rootNodeName) as $node) {
-                    $items[] = XMLParser::parseXMLNode($node, $modelClassName);
+                foreach ($path as $pathItem) {
+                    $json = $json->$pathItem;
                 }
-                return $items;
+
+                $mapper = new \JsonMapper();
+                if ($asArray) {
+                    return $mapper->mapArray($json, [], $modelClassName);
+                } else {
+                    return $mapper->map($json, new $modelClassName());
+                }
             }
         );
     }
