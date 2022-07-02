@@ -27,7 +27,8 @@ class ModelSchedule
      * @param ModelScheduleItem[] $scheduleItems
      * @internal item name is "schedule_items" therefore the mapping function is needed
      */
-    public function setScheduleItems(array $scheduleItems) {
+    public function setScheduleItems(array $scheduleItems)
+    {
         $this->scheduleItems = $scheduleItems;
     }
 }
