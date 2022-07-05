@@ -20,9 +20,12 @@ class ModelTeam
     public int $teamId;
 
     /**
-     * @var ModelParticipant[]
+     * @var ModelMember[]
      */
-    public $participants;
+    public $members;
 
-    public ?ModelPerson $teacher;
+    /*
+     * @var ModelPerson[]
+     */
+    public $teachers;
 }
