@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3783b569a1fe86ab9c10270fc420b623",
+    "content-hash": "0d9a093e7b1bfab29c311f05a023606b",
     "packages": [
         {
             "name": "fykosak/fksdb-downloader-core",
-            "version": "dev-master",
+            "version": "v1.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fykosak/fksdb-downloader-core.git",
-                "reference": "7969030"
+                "reference": "796903087e7193069d78ab879d1d02a632bdb59e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fykosak/fksdb-downloader-core/zipball/7969030",
-                "reference": "7969030",
+                "url": "https://api.github.com/repos/fykosak/fksdb-downloader-core/zipball/796903087e7193069d78ab879d1d02a632bdb59e",
+                "reference": "796903087e7193069d78ab879d1d02a632bdb59e",
                 "shasum": ""
             },
             "require": {
@@ -28,7 +28,6 @@
             "require-dev": {
                 "squizlabs/php_codesniffer": "^3.6.0"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -49,7 +48,7 @@
             "description": "Interface for downloading data from FKSDB by SOAP-client",
             "support": {
                 "issues": "https://github.com/fykosak/fksdb-downloader-core/issues",
-                "source": "https://github.com/fykosak/fksdb-downloader-core/tree/master"
+                "source": "https://github.com/fykosak/fksdb-downloader-core/tree/v1.5.1"
             },
             "time": "2022-09-23T20:19:29+00:00"
         },
@@ -388,9 +387,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "fykosak/fksdb-downloader-core": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
