@@ -8,7 +8,7 @@ class ModelTeam
 {
     public string $category;
     public \DateTimeImmutable $created;
-    public bool $forceA;
+    public ?bool $forceA;
     public ?string $gameLang = null;
     public string $name;
     public ?string $password = null;

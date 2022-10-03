@@ -9,5 +9,5 @@ class ModelPerson
     public ?int $personId;
 
     public string $name;
-    public string $email;
+    public ?string $email;
 }
