@@ -23,9 +23,5 @@ class ModelScheduleItem
      * @var string[]|null
      */
     public ?array $description;
-
-    /**
-     * @var int[]|null
-     */
     public ?array $price;
 }
