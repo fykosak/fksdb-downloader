@@ -16,7 +16,7 @@ class ModelSchedule
     /**
      * @var string[]
      */
-    public array $label;
+    public array $name;
 
     /**
      * @var ModelScheduleItem[]

@@ -12,16 +12,22 @@ class ModelScheduleItem
     public ?int $totalCapacity;
     public ?int $usedCapacity;
 
-    public ?bool $requireIdNumber;
-
     /**
      * @var string[]|null
      */
-    public ?array $label;
+    public ?array $name;
 
     /**
      * @var string[]|null
      */
     public ?array $description;
+
+    /**
+     * @var string[]|null
+     */
+    public ?array $longDescription;
     public ?array $price;
+
+    public \DateTimeImmutable $begin;
+    public \DateTimeImmutable $end;
 }
